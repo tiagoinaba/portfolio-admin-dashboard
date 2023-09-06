@@ -13,7 +13,9 @@ export const SideNav = () => {
         "p-6 flex flex-col h-screen max-w-min sm:max-w-[200px] border-r items-center"
       }
     >
-      <Image src={heinzLogo} className="text-blue-400" alt="Logo da Heinz" />
+      <p className="text-xl mt-10 tracking-tighter text-primary">
+        TIAGO<span className="font-extrabold ">INABA</span>
+      </p>
       <MainNav />
     </div>
   );

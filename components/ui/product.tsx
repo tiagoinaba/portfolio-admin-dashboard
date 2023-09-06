@@ -17,7 +17,7 @@ export const Product = ({
   return (
     <div
       className={cn(
-        "border rounded flex-auto cursor-pointer hover:bg-red-100 p-4 transition-colors duration-500 text-center flex flex-col justify-between",
+        "border rounded flex-auto min-w-[200px] cursor-pointer hover:bg-red-100 p-4 transition-colors duration-500 text-center flex flex-col justify-between max-w-[250px] mx-auto max-h-[400px]",
         className
       )}
     >
@@ -26,7 +26,7 @@ export const Product = ({
           src={imgUrl ?? defaultImg}
           alt="Imagem do produto"
           fill
-          style={{ objectFit: "cover", objectPosition: "0% 80%" }}
+          style={{ objectFit: "cover" }}
         />
       </div>
       <h3 className="text-lg font-semibold tracking-tight truncate">{name}</h3>

@@ -120,7 +120,7 @@ export const ProductForm = () => {
                   <FormLabel>Nome</FormLabel>
                   <Input
                     disabled={isLoading}
-                    placeholder="Ketchup, Mostarda..."
+                    placeholder="Nome do produto"
                     {...field}
                   />
                 </FormItem>
@@ -171,6 +171,7 @@ export const ProductForm = () => {
             render={({ field }) => {
               return (
                 <MyDropzone
+                  disabled={isLoading}
                   setValue={form.setValue}
                   value={field.value}
                   onChange={field.onChange}

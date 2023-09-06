@@ -66,20 +66,6 @@ export default function Home() {
         </div>
       </div>
       <div className="flex flex-col gap-4 w-1/2">
-        <div className="h-[50%] rounded-lg shadow border transition-colors duration-500 hover:bg-red-50 p-4 flex gap-4 flex-col self-start">
-          <div className="flex items-center justify-between">
-            <h1 className="font-bold text-lg">Feed</h1>
-            <Button className="h-8 w-8" size={"icon"} variant={"default"}>
-              <PlusCircle />
-            </Button>
-          </div>
-          <div className="flex flex-col h-full">
-            <div className="flex flex-auto gap-2">
-              <Post img={posts[1].img} description={posts[1].text} />
-              <Post img={posts[2].img} description={posts[2].text} />
-            </div>
-          </div>
-        </div>
         <div className="rounded-lg shadow border transition-colors duration-500 hover:bg-red-50 p-4 flex gap-4 flex-col flex-auto">
           <div className="flex items-center justify-between">
             <h1 className="font-bold text-lg">Produtos</h1>
@@ -90,15 +76,17 @@ export default function Home() {
               ver todos
             </Link>
           </div>
-          <div className="flex gap-2 h-full">
+          <div className="flex gap-2 h-full flex-wrap">
             {products &&
-              products.map(({ imageUrl, ...rest }) => (
-                <Product
-                  key={rest.id}
-                  imgUrl={JSON.parse(imageUrl)[0]}
-                  {...rest}
-                />
-              ))}
+              products
+                .slice(0, 7)
+                .map(({ imageUrl, ...rest }) => (
+                  <Product
+                    key={rest.id}
+                    imgUrl={JSON.parse(imageUrl)[0]}
+                    {...rest}
+                  />
+                ))}
           </div>
         </div>
       </div>

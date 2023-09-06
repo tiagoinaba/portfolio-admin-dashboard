@@ -8,12 +8,14 @@ type DropzoneProps = {
   onChange: (...event: any[]) => void;
   value: File[];
   setValue: UseFormSetValue<any>;
+  disabled: boolean;
 };
 
 export default function MyDropzone({
   className,
   onChange,
   value,
+  disabled,
   setValue,
 }: DropzoneProps) {
   const onDrop = useCallback(
@@ -28,7 +30,10 @@ export default function MyDropzone({
     },
     [setValue]
   );
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    disabled,
+  });
   const [files, setFiles] = useState<(File & { preview: string })[]>([]);
 
   return (
