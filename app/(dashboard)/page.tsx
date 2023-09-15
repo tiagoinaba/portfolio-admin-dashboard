@@ -83,7 +83,7 @@ export default function Home() {
                 .map(({ imageUrl, ...rest }) => (
                   <Product
                     key={rest.id}
-                    imgUrl={JSON.parse(imageUrl)[0]}
+                    imgUrl={JSON.parse(imageUrl)[0].url}
                     {...rest}
                   />
                 ))}

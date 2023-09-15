@@ -4,6 +4,8 @@ import React from "react";
 import defaultImg from "@/assets/produtos/ketchup.jpg";
 import { Button } from "@/components/ui/button";
 import { XIcon } from "lucide-react";
+import { mutate } from "swr";
+import axios from "axios";
 
 export const Product = ({
   className,
@@ -27,6 +29,11 @@ export const Product = ({
     >
       {id && (
         <Button
+          onClick={() => {
+            mutate("/api/products", async () => {
+              await axios.delete(`/api/products/${id}`);
+            });
+          }}
           className="absolute top-0 right-0 z-10 hover:bg-primary"
           size={"icon"}
         >

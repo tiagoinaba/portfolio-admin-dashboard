@@ -1,5 +1,6 @@
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
+import { utapi } from "uploadthing/server";
 
 export async function DELETE(
   req: Request,
@@ -9,11 +10,18 @@ export async function DELETE(
     if (!params.productId)
       return new NextResponse("Product id é obrigatório", { status: 400 });
 
-    const product = await prismadb.product.deleteMany({
+    const product = await prismadb.product.delete({
       where: {
         id: params.productId,
       },
     });
+
+    const images = JSON.parse(product.imageUrl) as {
+      url: string;
+      key: string;
+    }[];
+
+    await utapi.deleteFiles(images.map((img) => img.key));
 
     return NextResponse.json(product);
   } catch (err) {

@@ -12,6 +12,7 @@ import { toast } from "react-hot-toast";
 import MyDropzone from "./Dropzone";
 import { useUploadThing } from "@/lib/uploadthing";
 import { useStoreModal } from "@/hooks/use-modal";
+import { useProducts } from "@/hooks/use-products";
 
 const formSchema = z.object({
   name: z.string().min(1, "Escreva o nome"),
@@ -66,6 +67,8 @@ const maskInput = (value: string) => {
 };
 
 export const ProductForm = () => {
+  const { mutate } = useProducts();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onClose = useStoreModal((state) => state.onClose);
@@ -88,12 +91,14 @@ export const ProductForm = () => {
       const res = await startUpload(data.files);
 
       if (res) {
-        const post = await axios.post(`/api/products`, {
-          ...data,
-          imageUrl: res.map((file) => file.url),
-          price: formatPrice(data.price),
+        mutate(async () => {
+          const post = await axios.post(`/api/products`, {
+            ...data,
+            imageUrl: res.map((file) => ({ url: file.url, key: file.key })),
+            price: formatPrice(data.price),
+          });
+          if (post.status === 200) toast.success("Criado com sucesso!");
         });
-        if (post.status === 200) toast.success("Criado com sucesso!");
       }
       form.reset();
       onClose();

@@ -6,9 +6,11 @@ import useSWR from "swr";
 import { Product as PrismaProduct } from "@prisma/client";
 import { useProducts } from "@/hooks/use-products";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useEffect } from "react";
 
 const Products = () => {
   const { products, error, isLoading } = useProducts();
+
   return (
     <div className="grid flex-auto grid-cols-4 grid-rows-2 gap-2">
       {isLoading ? (
@@ -38,7 +40,7 @@ const Products = () => {
             id={product.id}
             name={product.name}
             price={product.price}
-            imgUrl={JSON.parse(product.imageUrl)[0]}
+            imgUrl={JSON.parse(product.imageUrl)[0].url}
           />
         ))
       )}
